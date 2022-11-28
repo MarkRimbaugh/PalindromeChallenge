@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Text;
+using System.Text.RegularExpressions;
 
-// Global variables
 string userInput;
 
 // Introduction
@@ -26,14 +26,32 @@ do
     }
 } while (userInput != "exit");
 
-// Tuple function
+
 static (bool, int) IsPalindrome(string input)
+{
+    // strip out numbers, spaces, and special characters
+    string testWord = Regex.Replace(input, "[^a-zA-Z]", "");
+    Console.WriteLine(testWord);
+
+    // loop through the string, comparing each index to it's opposite index
+    for (int i = 0; i < testWord.Length; i++)
+    {
+        if (testWord[i] != testWord[^(i + 1)])
+        {
+            return (false, testWord.Length);
+        }
+    }
+    return (true, testWord.Length);
+}
+
+
+// Tuple function
+/*static (bool, int) IsPalindrome(string input)
 {
     bool isPalindrome = false;
     string inputFormatted;
     string inputReversed;
     int stringLength = input.Length;
-
 
     // Create a new string without any puncuation or spaces
     StringBuilder sb = new();
@@ -53,18 +71,11 @@ static (bool, int) IsPalindrome(string input)
     inputReversed = sb.ToString();
     Console.WriteLine(inputReversed);
 
-    if (inputReversed == inputFormatted)
-    {
-        isPalindrome = true;
-    }        
-    else
-    {
-        isPalindrome = false;
-    }
+    isPalindrome = inputReversed == inputFormatted ? true : false;
 
     Console.WriteLine($"Input formatted: {inputFormatted}");
     Console.WriteLine($"Input reversed: {inputReversed}");
 
     return (isPalindrome, stringLength);
-}
+}*/
 
